@@ -1,0 +1,69 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:WPFDrag.Themes">
+
+
+    <Style TargetType="{x:Type local:ProcessWorkFlow}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:ProcessWorkFlow}">
+                    <Grid>
+                        <Border BorderBrush="Black" BorderThickness="1">
+                            <Grid>
+                                <Rectangle Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Fill="#FF1E1E1E"  />
+                                <TextBlock Text="{TemplateBinding Content}" Foreground="White" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:StartWorkFlow}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:StartWorkFlow}">
+                    <Grid>
+
+                        <Ellipse Stroke="Black" StrokeThickness="1" Fill ="Red"   Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"  ></Ellipse>
+                        <TextBlock Text="{TemplateBinding Content}" HorizontalAlignment="Center" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type local:DecisionWorkFlow}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:DecisionWorkFlow}">
+
+                    <Grid>
+                        <Path Stroke="Black"  StrokeThickness="1" Data="M50,0L100,50 50,100 0,50z" Fill="Green"  Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Stretch="Uniform" />
+                        <TextBlock Text="{TemplateBinding Content}" HorizontalAlignment="Center" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type local:EndWorkFlow}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:EndWorkFlow}">
+                    <Grid>
+                        <Border BorderBrush="Black"  Background="Blue" BorderThickness="1"  Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" CornerRadius="20">
+                            <Grid>
+                                <Rectangle  Stretch="Uniform" Width="80" Height="50" ></Rectangle>
+                                <TextBlock Text="{TemplateBinding Content}" HorizontalAlignment="Center" Foreground="White" FontSize="15" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,93 @@
+﻿<Window x:Class="WPFDrag.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ignore="http://www.galasoft.ch/ignore"
+        xmlns:wf="clr-namespace:WPFDrag.Themes"
+        mc:Ignorable="d ignore"
+        Height="600"
+        Width="1000"
+        Title="MVVM Light Application"
+        DataContext="{Binding Main, Source={StaticResource Locator}}">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Skins/MainSkin.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        
+    </Window.Resources>
+
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="310"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Expander VerticalAlignment="Top"  IsExpanded="True" ExpandDirection="Down" HorizontalContentAlignment="Left" SnapsToDevicePixels="True">
+                <Expander.Header>
+                    <TextBlock Text="建模工具" FontSize="14" FontWeight="Bold" Margin="5,0,0,5" />
+                </Expander.Header>
+                <Expander.Content>
+
+                    <Border BorderBrush="Gray" BorderThickness="1" Margin="2,5" VerticalAlignment="Top">
+                        <WrapPanel Name="wp" Orientation="Horizontal" VerticalAlignment="Top"   >
+                            <ItemsControl ItemsSource="{Binding ToolBox.WorkAreaItems}" Style="{StaticResource MyToolBoxItemsControlStyle}">
+                               
+                                                                                  
+                            </ItemsControl>
+                            <!--<wf:ProcessWorkFlow Margin="5" Height="50" Width="50"  DragStarted="ProcessWorkFlow_DragStarted" DragCompleted="Thumb_DragCompleted" DragDelta="Thumb_DragDelta"/>
+                            <wf:StartWorkFlow Margin="5" Height="50" Width="70" DragStarted="ProcessWorkFlow_DragStarted"/>
+                            <wf:DecisionWorkFlow Margin="5" Height="50" Width="50" DragStarted="ProcessWorkFlow_DragStarted"/>
+                            <wf:EndWorkFlow  Margin="5" Height="50" Width="70" DragStarted="ProcessWorkFlow_DragStarted"/>-->
+                        </WrapPanel>
+
+                    </Border>
+                             
+                 
+                </Expander.Content>
+            </Expander>
+            <GroupBox Header="Property" VerticalAlignment="Bottom" Height="200" DataContext="{Binding WorkArea.SelectItem}">
+                <Grid>
+                    <Label Content="Height: " HorizontalAlignment="Right" Margin="0,10,220,0" VerticalAlignment="Top"/>
+                    <Label Content="Width: " HorizontalAlignment="Right" Margin="10,40,220,0" VerticalAlignment="Top"/>
+                    <Label Content="Left: " HorizontalAlignment="Right" Margin="10,70,220,0" VerticalAlignment="Top"/>
+                    <Label Content="Top: " HorizontalAlignment="Right" Margin="10,100,220,0" VerticalAlignment="Top"/>
+                    <Label Content="Content: " HorizontalAlignment="Right" Margin="10,130,220,0" VerticalAlignment="Top"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="109,12,0,0" TextWrapping="Wrap" Text="{Binding Height,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="109,42,0,0" TextWrapping="Wrap" Text="{Binding Width,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="109,72,0,0" TextWrapping="Wrap" Text="{Binding Left,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="109,102,0,0" TextWrapping="Wrap" Text="{Binding Top,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="109,132,0,0" TextWrapping="Wrap" Text="{Binding Content,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
+
+                </Grid>
+               
+            </GroupBox>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition ></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Rectangle Fill="#FFEBF0ED"  Height="30" VerticalAlignment="Top" Margin="2">
+                </Rectangle>
+                <TextBlock Text="建模工作区" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            </Grid>
+            <Grid  Grid.Row="1" >
+                <Border BorderBrush="Black" BorderThickness="1" Margin="3" >
+                    <Canvas Name="can" Background ="AliceBlue" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <ItemsControl ItemsSource="{Binding WorkArea.WorkAreaItems}" Style="{StaticResource MyItemsControlStyle}">
+                        </ItemsControl>
+                        <!--<wf:ProcessWorkFlow Canvas.Top ="2" Canvas.Left="2"  Height="50" Width="50" />-->
+                        <!--<wf:ProcessWorkFlow   Height="50" Width="50" />-->
+                    </Canvas>
+                </Border>
+            </Grid>
+          
+          
+        </Grid>
+    </Grid>
+</Window>
