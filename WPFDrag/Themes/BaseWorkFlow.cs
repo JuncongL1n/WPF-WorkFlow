@@ -38,17 +38,17 @@ namespace WPFDrag.Themes
 
         private void BaseWorkFlow_DragDelta(object sender, DragDeltaEventArgs e)
         {
-			//  BaseWorkFlow myThumb = (BaseWorkFlow)sender;
-			// double nTop = Canvas.GetTop(myThumb) + e.VerticalChange;
-			// double nLeft = Canvas.GetLeft(myThumb) + e.HorizontalChange;
-			//  Canvas.SetTop(myThumb, nTop);
-			//  Canvas.SetLeft(myThumb, nLeft);
+			//BaseWorkFlow myThumb = (BaseWorkFlow)sender;
+			//double nTop = Canvas.GetTop(myThumb) + e.VerticalChange;
+			//double nLeft = Canvas.GetLeft(myThumb) + e.HorizontalChange;
+			//Canvas.SetTop(myThumb, nTop);
+			//Canvas.SetLeft(myThumb, nLeft);
 			//Console.WriteLine("top:{0},left:{1}", nTop, nLeft);
 			Top += e.VerticalChange;
 			Left += e.HorizontalChange;
-        }
+		}
 
-        public string Content
+		public string Content
         {
             get { return (string)GetValue(ContentProperty); }
             set { SetValue(ContentProperty, value); }
@@ -90,7 +90,9 @@ namespace WPFDrag.Themes
         Start,
         Process,
         Decision,
-        End
+        End,
+		Line,
+		PolyLine	
     }
 }
 

@@ -1,5 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using WPFDrag.Model;
 using WPFDrag.Themes;
 
@@ -86,6 +88,76 @@ namespace WPFDrag.ViewModel
             //WorkArea.WorkAreaItems.Add(wf);
         }
 
+
+		private RelayCommand _cmdSave;
+
+		/// <summary>
+		/// Gets and Sets the CmdSave.
+		/// </summary>
+		public RelayCommand CmdSave
+		{
+			get
+			{
+				if (_cmdSave == null)
+					return new RelayCommand(() => CmdSaveExecute() );
+				return _cmdSave;
+			}
+			set
+			{
+				_cmdSave = value;
+			}
+		}
+
+		private void CmdSaveExecute()
+		{
+			if (WorkArea.WorkAreaItems.Count < 1)
+			{
+				MessageBox.Show("工作区没有内容");
+				return;
+			}
+			SaveFileDialog sfd = new SaveFileDialog();
+			sfd.InitialDirectory = @"D:\";
+			sfd.Filter = "xml file|*.xml";
+			if (sfd.ShowDialog() == DialogResult.OK)
+			{
+				WorkArea.Save2XmlFile(sfd.FileName);
+			}
+		}
+
+
+		private RelayCommand _cmdLoad;
+
+		/// <summary>
+		/// Gets and Sets the CmdLoad.
+		/// </summary>
+		public RelayCommand CmdLoad
+		{
+			get
+			{
+				if (_cmdLoad == null)
+					return new RelayCommand(() => CmdLoadExecute());
+				return _cmdLoad;
+			}
+			set
+			{
+				_cmdLoad = value;
+			}
+		}
+
+		private void CmdLoadExecute()
+		{
+			OpenFileDialog ofd = new OpenFileDialog();
+			ofd.Filter = "xml file(*.xml)|*.xml";
+			ofd.ValidateNames = true;
+			ofd.CheckPathExists = true;
+			ofd.CheckFileExists = true;
+			if (ofd.ShowDialog() == DialogResult.OK)
+			{
+
+				WorkArea.LoadXml(ofd.FileName);
+			}
+		}
+
         /// <summary>
         /// 初始化工具箱
         /// </summary>
@@ -137,15 +209,24 @@ namespace WPFDrag.ViewModel
             BaseWorkFlow endWF = WorkFlowFactory.GetWorkFlow(WorkFlowEnum.End);
             endWF.DragStarted += AddModel;
             ToolBox.WorkAreaItems.Add(endWF);
-        }
+
+			BaseWorkFlow lineWF = WorkFlowFactory.GetWorkFlow(WorkFlowEnum.Line);
+			lineWF.DragStarted += AddModel;
+			ToolBox.WorkAreaItems.Add(lineWF);
+
+			BaseWorkFlow polyLineWF = WorkFlowFactory.GetWorkFlow(WorkFlowEnum.PolyLine);
+			polyLineWF.DragStarted += AddModel;
+			ToolBox.WorkAreaItems.Add(polyLineWF);
+
+		}
 
 
-        /// <summary>
-        /// 添加流程到工作区中
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void AddModel(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
+		/// <summary>
+		/// 添加流程到工作区中
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void AddModel(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
         {
             BaseWorkFlow wf = sender as BaseWorkFlow;
             WorkArea.AddModelToWorkArea(wf.WorkFlowEnum);

@@ -31,16 +31,7 @@ namespace WPFDrag.Themes
         {
             WorkFlowEnum = WorkFlowEnum.Process;
         }
-        public string MyProperty
-        {
-            get { return (string)GetValue(MyPropertyProperty); }
-            set { SetValue(MyPropertyProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MyPropertyProperty =
-            DependencyProperty.Register("MyProperty", typeof(string), typeof(ProcessWorkFlow), new PropertyMetadata("1"));
-
+    
 
     }
 }

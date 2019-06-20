@@ -8,7 +8,7 @@
         mc:Ignorable="d ignore"
         Height="600"
         Width="1000"
-        Title="MVVM Light Application"
+        Title="{Binding WelcomeTitle}"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
 
     <Window.Resources>
@@ -38,6 +38,9 @@
                                
                                                                                   
                             </ItemsControl>
+                            <!--<Line X1="10" Y1="100" X2="100" Y2="100"  Stroke="Black" VerticalAlignment="Top" HorizontalAlignment="Left"  StrokeThickness="4" Height="131"/>
+                            <Polyline Name="pl1" Points="-10,110 110,110 110,-10" Stroke="Black"  Canvas.Top="50" StrokeThickness="4"  Canvas.Left="150" />-->
+                            <!--<wf:LineWorkFlow  Canvas.Top ="2" Canvas.Left="2" X1="100" HorizontalAlignment="Left" VerticalAlignment="Top" Y1="10" X2="10" Y2="10" Height="20"/>-->
                             <!--<wf:ProcessWorkFlow Margin="5" Height="50" Width="50"  DragStarted="ProcessWorkFlow_DragStarted" DragCompleted="Thumb_DragCompleted" DragDelta="Thumb_DragDelta"/>
                             <wf:StartWorkFlow Margin="5" Height="50" Width="70" DragStarted="ProcessWorkFlow_DragStarted"/>
                             <wf:DecisionWorkFlow Margin="5" Height="50" Width="50" DragStarted="ProcessWorkFlow_DragStarted"/>
@@ -49,7 +52,7 @@
                  
                 </Expander.Content>
             </Expander>
-            <GroupBox Header="Property" VerticalAlignment="Bottom" Height="200" DataContext="{Binding WorkArea.SelectItem}">
+            <GroupBox Header="Property" VerticalAlignment="Bottom" Height="200" DataContext="{Binding WorkArea.SelectItem}" Margin="0,0,0,100">
                 <Grid>
                     <Label Content="Height: " HorizontalAlignment="Right" Margin="0,10,220,0" VerticalAlignment="Top"/>
                     <Label Content="Width: " HorizontalAlignment="Right" Margin="10,40,220,0" VerticalAlignment="Top"/>
@@ -63,8 +66,10 @@
                     <TextBox HorizontalAlignment="Left" Height="23" Margin="109,132,0,0" TextWrapping="Wrap" Text="{Binding Content,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
 
                 </Grid>
-               
+              
             </GroupBox>
+            <Button VerticalAlignment="Bottom" Height="50" Width="70" Content="Save" HorizontalAlignment="Left"  Margin="20" Command="{Binding CmdSave}"/>
+            <Button VerticalAlignment="Bottom" Height="50" Width="70" Content="Load" HorizontalAlignment="Left"  Margin="180,0,0,20" Command="{Binding CmdLoad}"/>
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
@@ -83,6 +88,11 @@
                         </ItemsControl>
                         <!--<wf:ProcessWorkFlow Canvas.Top ="2" Canvas.Left="2"  Height="50" Width="50" />-->
                         <!--<wf:ProcessWorkFlow   Height="50" Width="50" />-->
+                        <!--<wf:LineArrow StartPoint="10,100" EndPoint="150,100" />-->
+                        <!--<wf:LineWorkFlow  Canvas.Top ="2" Canvas.Left="2" X1="0" Height="100" Width="20" Y1="0" X2="0" Y2="100"/>
+                        <wf:PolyLineWorkFlow Canvas.Top="50" Canvas.Left="100" Height="100" Width="100" Points="100,100 100,0 0,0" />-->
+                        <!--<Line X1="10" Y1="00" X2="100" Y2="100" Canvas.Left="0" Canvas.Top="100" Stroke="Black" StrokeThickness="2"/>-->
+                        <!--<Polyline Name="pl1" Points="-10,110 110,110 110,-10" Stroke="Black"  Canvas.Top="50" StrokeThickness="4"  Canvas.Left="150" />-->
                     </Canvas>
                 </Border>
             </Grid>

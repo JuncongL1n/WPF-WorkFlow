@@ -22,8 +22,9 @@ namespace WPFDrag
             Closing += (s, e) => ViewModelLocator.Cleanup();
         }
 
+	
 
-        public Thumb selectItem;
+		public Thumb selectItem;
 
         private void Thumb_DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
         {
