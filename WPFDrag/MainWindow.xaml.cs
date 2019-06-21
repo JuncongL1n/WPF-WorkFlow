@@ -55,7 +55,6 @@ namespace WPFDrag
             selectItem = addWf;
             Canvas.SetTop(addWf, 10);
             Canvas.SetLeft(addWf, 10);
-            can.Children.Add(addWf);
             
             
         }

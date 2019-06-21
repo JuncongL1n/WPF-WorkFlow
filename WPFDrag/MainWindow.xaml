@@ -10,48 +10,13 @@
         Width="1000"
         Title="{Binding WelcomeTitle}"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
-
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Skins/MainSkin.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-        
-    </Window.Resources>
-
     <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="310"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
-            <Expander VerticalAlignment="Top"  IsExpanded="True" ExpandDirection="Down" HorizontalContentAlignment="Left" SnapsToDevicePixels="True">
-                <Expander.Header>
-                    <TextBlock Text="建模工具" FontSize="14" FontWeight="Bold" Margin="5,0,0,5" />
-                </Expander.Header>
-                <Expander.Content>
-
-                    <Border BorderBrush="Gray" BorderThickness="1" Margin="2,5" VerticalAlignment="Top">
-                        <WrapPanel Name="wp" Orientation="Horizontal" VerticalAlignment="Top"   >
-                            <ItemsControl ItemsSource="{Binding ToolBox.WorkAreaItems}" Style="{StaticResource MyToolBoxItemsControlStyle}">
-                               
-                                                                                  
-                            </ItemsControl>
-                            <!--<Line X1="10" Y1="100" X2="100" Y2="100"  Stroke="Black" VerticalAlignment="Top" HorizontalAlignment="Left"  StrokeThickness="4" Height="131"/>
-                            <Polyline Name="pl1" Points="-10,110 110,110 110,-10" Stroke="Black"  Canvas.Top="50" StrokeThickness="4"  Canvas.Left="150" />-->
-                            <!--<wf:LineWorkFlow  Canvas.Top ="2" Canvas.Left="2" X1="100" HorizontalAlignment="Left" VerticalAlignment="Top" Y1="10" X2="10" Y2="10" Height="20"/>-->
-                            <!--<wf:ProcessWorkFlow Margin="5" Height="50" Width="50"  DragStarted="ProcessWorkFlow_DragStarted" DragCompleted="Thumb_DragCompleted" DragDelta="Thumb_DragDelta"/>
-                            <wf:StartWorkFlow Margin="5" Height="50" Width="70" DragStarted="ProcessWorkFlow_DragStarted"/>
-                            <wf:DecisionWorkFlow Margin="5" Height="50" Width="50" DragStarted="ProcessWorkFlow_DragStarted"/>
-                            <wf:EndWorkFlow  Margin="5" Height="50" Width="70" DragStarted="ProcessWorkFlow_DragStarted"/>-->
-                        </WrapPanel>
-
-                    </Border>
-                             
-                 
-                </Expander.Content>
-            </Expander>
+            <wf:ToolBoxTemplate  DataContext="{Binding ToolBox.WorkAreaItems}" Title="建模工具"/>
             <GroupBox Header="Property" VerticalAlignment="Bottom" Height="200" DataContext="{Binding WorkArea.SelectItem}" Margin="0,0,0,100">
                 <Grid>
                     <Label Content="Height: " HorizontalAlignment="Right" Margin="0,10,220,0" VerticalAlignment="Top"/>
@@ -72,32 +37,7 @@
             <Button VerticalAlignment="Bottom" Height="50" Width="70" Content="Load" HorizontalAlignment="Left"  Margin="180,0,0,20" Command="{Binding CmdLoad}"/>
         </Grid>
         <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition ></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Rectangle Fill="#FFEBF0ED"  Height="30" VerticalAlignment="Top" Margin="2">
-                </Rectangle>
-                <TextBlock Text="建模工作区" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            </Grid>
-            <Grid  Grid.Row="1" >
-                <Border BorderBrush="Black" BorderThickness="1" Margin="3" >
-                    <Canvas Name="can" Background ="AliceBlue" HorizontalAlignment="Left" VerticalAlignment="Top">
-                        <ItemsControl ItemsSource="{Binding WorkArea.WorkAreaItems}" Style="{StaticResource MyItemsControlStyle}">
-                        </ItemsControl>
-                        <!--<wf:ProcessWorkFlow Canvas.Top ="2" Canvas.Left="2"  Height="50" Width="50" />-->
-                        <!--<wf:ProcessWorkFlow   Height="50" Width="50" />-->
-                        <!--<wf:LineArrow StartPoint="10,100" EndPoint="150,100" />-->
-                        <!--<wf:LineWorkFlow  Canvas.Top ="2" Canvas.Left="2" X1="0" Height="100" Width="20" Y1="0" X2="0" Y2="100"/>
-                        <wf:PolyLineWorkFlow Canvas.Top="50" Canvas.Left="100" Height="100" Width="100" Points="100,100 100,0 0,0" />-->
-                        <!--<Line X1="10" Y1="00" X2="100" Y2="100" Canvas.Left="0" Canvas.Top="100" Stroke="Black" StrokeThickness="2"/>-->
-                        <!--<Polyline Name="pl1" Points="-10,110 110,110 110,-10" Stroke="Black"  Canvas.Top="50" StrokeThickness="4"  Canvas.Left="150" />-->
-                    </Canvas>
-                </Border>
-            </Grid>
-          
-          
+            <wf:WorkAreaTemplate DataContext="{Binding WorkArea.WorkAreaItems}" Title="建模工作区"></wf:WorkAreaTemplate>
         </Grid>
     </Grid>
 </Window>

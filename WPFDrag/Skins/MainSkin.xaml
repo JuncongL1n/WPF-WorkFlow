@@ -2,41 +2,5 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:wf="clr-namespace:WPFDrag.Themes"
                     xmlns:m ="clr-namespace:WPFDrag.Model">
-    <Style x:Key="MyItemsControlStyle" TargetType="ItemsControl">
-        <Setter Property="ItemsPanel">
-            <Setter.Value>
-                <ItemsPanelTemplate>
-                    <Canvas />
-                </ItemsPanelTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="ItemContainerStyle">
-            <Setter.Value>
-                <Style>
-                    <!-- 设置集合对象控件坐标绑定 -->
-                    <Setter Property="Canvas.Left" Value="{Binding Left ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                    <Setter Property="Canvas.Top" Value="{Binding Top,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
-                </Style>
-            </Setter.Value>
-        </Setter>
-    </Style>
-    <Style x:Key="MyToolBoxItemsControlStyle" TargetType="ItemsControl">
-        <Setter Property="ItemsPanel">
-            <Setter.Value>
-                <ItemsPanelTemplate>
-                    <!-- 设置集合对象控件排列方向 -->
-                    <WrapPanel Orientation="Horizontal"  />
-                </ItemsPanelTemplate>
-            </Setter.Value>
-        </Setter >
-        <Setter  Property="ItemContainerStyle" >
-            <Setter.Value>
-                <Style>
-                    <!-- 设置集合对象控件间隔 -->
-                    <Setter Property="Control.Margin" Value="5"></Setter>
-                </Style>
-              
-            </Setter.Value>
-        </Setter>
-    </Style>
+ 
 </ResourceDictionary>

@@ -83,6 +83,8 @@
     <Compile Include="Themes\PolyLineWorkFlow.cs" />
     <Compile Include="Themes\ProcessWorkFLow.cs" />
     <Compile Include="Themes\StartWorkFlow.cs" />
+    <Compile Include="Themes\ToolBoxTemplate.cs" />
+    <Compile Include="Themes\WorkAreaTemplate.cs" />
     <Compile Include="Themes\WorkFlowEnum.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
