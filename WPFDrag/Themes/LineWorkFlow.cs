@@ -70,7 +70,10 @@ namespace WPFDrag.Themes
 		public static readonly DependencyProperty Y2Property =
 			DependencyProperty.Register("Y2", typeof(double), typeof(LineWorkFlow), new PropertyMetadata(0.0d));
 
-
+		internal override void SetAttributes()
+		{
+			Attributes = new List<string> { "Height", "Width", "Left", "Top","X1","Y1","X2","Y2" };
+		}
 
 
 	}

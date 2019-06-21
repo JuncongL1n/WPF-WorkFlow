@@ -50,11 +50,7 @@ namespace WPFDrag.Model
         {
             WorkAreaItems = new ObservableCollection<BaseWorkFlow>();
         }
-
-		/// <summary>
-		/// 需要序列化保存的属性
-		/// </summary>
-		private List<string> serializeProps = new List<string> { "Height","Width","Left","Top","Content","X1","Y1","X2","Y2","Points"};
+	
 
 		/// <summary>
 		/// 从工作区移除流程
@@ -73,12 +69,9 @@ namespace WPFDrag.Model
         public void AddModelToWorkArea(WorkFlowEnum workFlowEnum)
         {
             BaseWorkFlow addWf = WorkFlowFactory.GetWorkFlow(workFlowEnum);
-          //  addWf.DataContext = addWf;
             WorkAreaItems.Add(addWf);
             SelectItem = addWf;
 			RegistModelEvent(addWf);
-          //  addWf.MouseRightButtonUp += AddWf_MouseRightButtonUp;
-          //  addWf.DragStarted += AddWf_DragStarted; ;
         }
 
 		/// <summary>
@@ -115,21 +108,16 @@ namespace WPFDrag.Model
 		{
 			XmlDocument xmlDocument = new XmlDocument();
 			xmlDocument.AppendChild(xmlDocument.CreateXmlDeclaration("1.0", "utf-8", "yes"));
-			XmlNode xmlRoot = xmlDocument.CreateElement(string.Empty, "WrokFlow", string.Empty);
+			XmlElement xmlRoot = xmlDocument.CreateElement(string.Empty, "WrokFlow", string.Empty);
 			foreach (var item in WorkAreaItems)  //遍历工作区所有对象
 			{				
 				Type type = item.GetType();
-				var props = type.GetProperties();
-				XmlNode itemNode = xmlDocument.CreateElement(string.Empty, type.Name, string.Empty); //新建节点 
-				foreach (var prop in props)  //遍历所有属性
+			//	var props = type.GetProperties();
+				XmlElement itemNode = xmlDocument.CreateElement(string.Empty, type.Name, string.Empty); //新建节点 
+				foreach(string propName in item.Attributes)   //遍历需要序列化的属性
 				{
-					if (serializeProps.Contains(prop.Name))  //如果有需要序列化的属性
-					{
-						XmlNode xmlNode = xmlDocument.CreateElement(string.Empty, prop.Name, string.Empty); //新建节点 
-						xmlNode.InnerText = prop.GetValue(item, null).ToString();  //得到属性的值
-						itemNode.AppendChild(xmlNode);  //附加在节点
-					}
-				}
+					itemNode.SetAttribute(propName, type.GetProperty(propName).GetValue(item, null).ToString());   //设置节点属性
+				}		
 				xmlRoot.AppendChild(itemNode);  //附加对象节点到根节点
 			}			
 			xmlDocument.AppendChild(xmlRoot);
@@ -145,27 +133,28 @@ namespace WPFDrag.Model
 			WorkAreaItems.Clear();
 			XmlDocument xmlDocument = new XmlDocument();
 			xmlDocument.Load(fileName);
-			XmlNode xmlRoot = xmlDocument.DocumentElement;
+			XmlElement xmlRoot = xmlDocument.DocumentElement;
 			XmlNodeList xmlNodeList = xmlRoot.ChildNodes;
-			foreach (XmlNode li in xmlNodeList)   //遍历模块节点
+			foreach (XmlElement xe in xmlNodeList)   //遍历模块节点
 			{
 				Assembly assembly = Assembly.GetExecutingAssembly(); // 获取当前程序集 
-				dynamic obj = assembly.CreateInstance("WPFDrag.Themes."+li.Name); //反射新建实例
+				dynamic obj = assembly.CreateInstance("WPFDrag.Themes."+xe.Name); //反射新建实例
 				Type type = obj.GetType();
-				var propNodes = li.ChildNodes;
-				foreach(XmlNode propNode in propNodes)   //遍历属性节点
+				var props = type.GetProperties();
+				foreach(var prop in props)
 				{
-					var prop = type.GetProperty(propNode.Name);
-					if (prop.Name == "Points")
+					if (xe.HasAttribute(prop.Name))  //判断是否有该属性
 					{
-						PointCollection pc = PointCollection.Parse(propNode.InnerText);  //设置复杂属性
-						prop.SetValue(obj, pc);
+						if(prop.Name == "Points")
+						{
+							PointCollection pc = PointCollection.Parse(xe.GetAttribute("Points"));  //设置复杂属性
+							prop.SetValue(obj, pc);
+						}
+						else
+						{
+							prop.SetValue(obj, Convert.ChangeType(xe.GetAttribute(prop.Name), prop.PropertyType));  //根据类型设置属性
+						}						
 					}
-					else
-					{
-						prop.SetValue(obj, Convert.ChangeType(propNode.InnerText, prop.PropertyType));  //根据类型设置属性
-					}
-				
 				}
 				WorkAreaItems.Add(obj);
 				RegistModelEvent(obj);

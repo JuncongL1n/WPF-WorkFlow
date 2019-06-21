@@ -11,39 +11,31 @@ using System.Windows.Media;
 
 namespace WPFDrag.Themes
 {
-    public class BaseWorkFlow : Thumb,INotifyPropertyChanged
+    public abstract class BaseWorkFlow : Thumb,INotifyPropertyChanged,IWorkFlowAttributes
     {
         public WorkFlowEnum WorkFlowEnum { get; internal set; } = WorkFlowEnum.Base;
-        static BaseWorkFlow()
+
+		public List<string> Attributes { get; internal set; }
+
+		static BaseWorkFlow()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BaseWorkFlow), new FrameworkPropertyMetadata(typeof(BaseWorkFlow)));
+		
         }
 
        public BaseWorkFlow()
         {
+			SetAttributes();
             DragDelta += BaseWorkFlow_DragDelta;
-           // MouseRightButtonUp += BaseWorkFlow_MouseRightButtonUp;
         }
 
-        //private void BaseWorkFlow_MouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        //{
-        //    var parent = VisualTreeHelper.GetParent(this);
-
-        //    var canvas = parent as Canvas;
-        //    if(canvas != null)
-        //    {
-        //        canvas.Children.Remove(this);
-        //    }
-        //}
+		/// <summary>
+		/// 初始化设置需要序列化的属性
+		/// </summary>
+		internal abstract void SetAttributes();
 
         private void BaseWorkFlow_DragDelta(object sender, DragDeltaEventArgs e)
         {
-			//BaseWorkFlow myThumb = (BaseWorkFlow)sender;
-			//double nTop = Canvas.GetTop(myThumb) + e.VerticalChange;
-			//double nLeft = Canvas.GetLeft(myThumb) + e.HorizontalChange;
-			//Canvas.SetTop(myThumb, nTop);
-			//Canvas.SetLeft(myThumb, nLeft);
-			//Console.WriteLine("top:{0},left:{1}", nTop, nLeft);
 			Top += e.VerticalChange;
 			Left += e.HorizontalChange;
 		}
@@ -81,19 +73,8 @@ namespace WPFDrag.Themes
             }
         }
 
-
-    }
-
-    public enum WorkFlowEnum
-    {
-        Base,
-        Start,
-        Process,
-        Decision,
-        End,
-		Line,
-		PolyLine	
-    }
+		
+	} 
 }
 
 

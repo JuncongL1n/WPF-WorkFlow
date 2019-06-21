@@ -32,5 +32,10 @@ namespace WPFDrag.Themes
         {
             WorkFlowEnum = WorkFlowEnum.Start;
         }
+
+		internal override void SetAttributes()
+		{
+			Attributes = new List<string> { "Height", "Width", "Left", "Top", "Content"};
+		}
     }
 }

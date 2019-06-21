@@ -35,5 +35,9 @@ namespace WPFDrag.Themes
 			DependencyProperty.Register("Points", typeof(PointCollection), typeof(PolyLineWorkFlow), 
 				new PropertyMetadata ( new PointCollection()));
 
+		internal override void SetAttributes()
+		{
+			Attributes = new List<string> { "Height", "Width", "Left", "Top", "Points" };
+		}
 	}
 }

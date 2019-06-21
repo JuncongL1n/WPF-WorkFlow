@@ -78,10 +78,12 @@
     <Compile Include="Themes\BaseWorkFlow.cs" />
     <Compile Include="Themes\DecisionWorkFlow.cs" />
     <Compile Include="Themes\EndWorkFlow.cs" />
+    <Compile Include="Themes\IWorkFlowAttributes.cs" />
     <Compile Include="Themes\LineWorkFlow.cs" />
     <Compile Include="Themes\PolyLineWorkFlow.cs" />
     <Compile Include="Themes\ProcessWorkFLow.cs" />
     <Compile Include="Themes\StartWorkFlow.cs" />
+    <Compile Include="Themes\WorkFlowEnum.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">
