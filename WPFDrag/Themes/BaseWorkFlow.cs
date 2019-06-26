@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
+using WPFDrag.Model;
 
 namespace WPFDrag.Themes
 {
@@ -23,11 +25,18 @@ namespace WPFDrag.Themes
 		
         }
 
+		/// <summary>
+		/// 流程下面的子流程
+		/// </summary>
+		public WorkFlowModel ChildWorkFlow { get; set; }
+
        public BaseWorkFlow()
         {
 			SetAttributes();
             DragDelta += BaseWorkFlow_DragDelta;
         }
+
+
 
 		/// <summary>
 		/// 初始化设置需要序列化的属性

@@ -24,7 +24,7 @@ namespace WPFDrag.Themes
 
 		internal override void SetAttributes()
 		{
-			Attributes = new List<string> { "Height", "Width", "Left", "Top", "Content" };
+			Attributes = new List<string> { "Height", "Width", "Left", "Top", "Content", "ChildWorkFlow" };
 		}
 	}
 }

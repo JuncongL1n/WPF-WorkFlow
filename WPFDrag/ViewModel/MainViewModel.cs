@@ -1,9 +1,11 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using WPFDrag.Model;
 using WPFDrag.Themes;
+using WPFDrag.Token;
 
 namespace WPFDrag.ViewModel
 {
@@ -39,43 +41,13 @@ namespace WPFDrag.ViewModel
             }
         }
 
+		public WorkFlowModel WorkFlowModel { get; set; }
 
-
-        private WorkAreaModel _workArea;
-
-        /// <summary>
-        /// Sets and gets the WorkArea property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// </summary>
-        public WorkAreaModel WorkArea
-        {
-            get
-            { return _workArea; }
-            set
-            { _workArea = value; RaisePropertyChanged(() => WorkArea); }
-        }
-
-
-
-        private WorkAreaModel _toolBox;
-
-        /// <summary>
-        /// Sets and gets the ToolBox property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// </summary>
-        public WorkAreaModel ToolBox
-        {
-            get
-            { return _toolBox; }
-            set
-            { _toolBox = value; RaisePropertyChanged(() => ToolBox); }
-        }
-
+      
         public MainViewModel()
         {
-            WorkArea = new WorkAreaModel();
-            ToolBox = new WorkAreaModel();
-            InitToolBox();
+			WorkFlowModel = new WorkFlowModel();
+			WorkFlowModel.WorkArea.AddChildWorkFlowEventHandler += WorkArea_AddChildWorkFlowEventHandler;
             
             //BaseWorkFlow wf = new ProcessWorkFlow()
             //{
@@ -88,6 +60,10 @@ namespace WPFDrag.ViewModel
             //WorkArea.WorkAreaItems.Add(wf);
         }
 
+		private void WorkArea_AddChildWorkFlowEventHandler(WorkFlowModel obj)
+		{
+			Messenger.Default.Send<object>(obj,MessageToken.ChildWindowMessageToken);
+		}
 
 		private RelayCommand _cmdSave;
 
@@ -110,7 +86,7 @@ namespace WPFDrag.ViewModel
 
 		private void CmdSaveExecute()
 		{
-			if (WorkArea.WorkAreaItems.Count < 1)
+			if (WorkFlowModel.WorkArea.WorkAreaItems.Count < 1)
 			{
 				MessageBox.Show("工作区没有内容");
 				return;
@@ -120,7 +96,7 @@ namespace WPFDrag.ViewModel
 			sfd.Filter = "xml file|*.xml";
 			if (sfd.ShowDialog() == DialogResult.OK)
 			{
-				WorkArea.Save2XmlFile(sfd.FileName);
+				WorkFlowModel.WorkArea.Save2XmlFile(sfd.FileName);
 			}
 		}
 
@@ -154,89 +130,11 @@ namespace WPFDrag.ViewModel
 			if (ofd.ShowDialog() == DialogResult.OK)
 			{
 
-				WorkArea.LoadXml(ofd.FileName);
+				WorkFlowModel.WorkArea.LoadXml(ofd.FileName);
 			}
 		}
 
-        /// <summary>
-        /// 初始化工具箱
-        /// </summary>
-        public void InitToolBox()
-        {
-            #region 测试代码
-            //BaseWorkFlow startWF = new StartWorkFlow()
-            //{
-            //    Width = 70,
-            //    Height = 50,
-            //    Content="开始"
-            //};
-            //startWF.DragStarted += StartWF_DragStarted;
-            //BaseWorkFlow processWF = new ProcessWorkFlow()
-            //{
-            //    Width = 70,
-            //    Height = 50,
-            //    Content="处理"
-            //};
-            //BaseWorkFlow decisionWF = new DecisionWorkFlow()
-            //{
-            //    Width = 50,
-            //    Height = 50,
-            //    Content="决策"
-            //};
-            //BaseWorkFlow endWF = new EndWorkFlow()
-            //{
-            //    Width = 70,
-            //    Height = 50,
-            //    Content = "结束"
-            //};
-            //ToolBox.WorkAreaItems.Add(startWF);
-            //ToolBox.WorkAreaItems.Add(processWF);
-            //ToolBox.WorkAreaItems.Add(decisionWF);
-            //ToolBox.WorkAreaItems.Add(endWF);
-            #endregion
-            BaseWorkFlow startWF = WorkFlowFactory.GetWorkFlow(WorkFlowEnum.Start);
-            startWF.DragStarted += AddModel;
-            ToolBox.WorkAreaItems.Add(startWF);
-
-            BaseWorkFlow processWF = WorkFlowFactory.GetWorkFlow(WorkFlowEnum.Process);
-            ToolBox.WorkAreaItems.Add(processWF);
-            processWF.DragStarted += AddModel;
-
-            BaseWorkFlow decisionWF = WorkFlowFactory.GetWorkFlow(WorkFlowEnum.Decision);
-            ToolBox.WorkAreaItems.Add(decisionWF);
-            decisionWF.DragStarted += AddModel;
-
-            BaseWorkFlow endWF = WorkFlowFactory.GetWorkFlow(WorkFlowEnum.End);
-            endWF.DragStarted += AddModel;
-            ToolBox.WorkAreaItems.Add(endWF);
-
-			BaseWorkFlow lineWF = WorkFlowFactory.GetWorkFlow(WorkFlowEnum.Line);
-			lineWF.DragStarted += AddModel;
-			ToolBox.WorkAreaItems.Add(lineWF);
-
-			BaseWorkFlow polyLineWF = WorkFlowFactory.GetWorkFlow(WorkFlowEnum.PolyLine);
-			polyLineWF.DragStarted += AddModel;
-			ToolBox.WorkAreaItems.Add(polyLineWF);
-
-		}
-
-
-		/// <summary>
-		/// 添加流程到工作区中
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void AddModel(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
-        {
-            BaseWorkFlow wf = sender as BaseWorkFlow;
-            WorkArea.AddModelToWorkArea(wf.WorkFlowEnum);
-            //BaseWorkFlow addWf = WorkFlowFactory.GetWorkFlow(wf.WorkFlowEnum);
-            //addWf.DataContext = addWf;
-            //WorkArea.WorkAreaItems.Add(addWf);
-            //addWf.MouseRightButtonUp += AddWf_MouseRightButtonUp;
-            //addWf.MouseLeftButtonUp += AddWf_MouseLeftButtonUp;
-        }
-
+     
       
 
 

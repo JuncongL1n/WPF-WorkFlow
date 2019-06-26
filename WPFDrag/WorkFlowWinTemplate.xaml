@@ -1,23 +1,20 @@
-﻿<Window x:Class="WPFDrag.MainWindow"
+﻿<Window x:Class="WPFDrag.WorkFlowWinTemplate"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:ignore="http://www.galasoft.ch/ignore"
-        xmlns:wf="clr-namespace:WPFDrag.Themes"
-        mc:Ignorable="d ignore"
-        Height="600"
-        Width="1000"
-        Title="{Binding WelcomeTitle}"
-        DataContext="{Binding Main, Source={StaticResource Locator}}">
+        xmlns:local="clr-namespace:WPFDrag"
+        mc:Ignorable="d"
+          xmlns:wf="clr-namespace:WPFDrag.Themes"
+        Title="WorkFlowWinTemplate" Height="600" Width="1000">
     <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="310"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
-            <wf:ToolBoxTemplate  DataContext="{Binding WorkFlowModel.ToolBox.WorkAreaItems}" Title="建模工具"/>
-            <GroupBox Header="Property" VerticalAlignment="Bottom" Height="200" DataContext="{Binding WorkFlowModel.WorkArea.SelectItem}" Margin="0,0,0,100">
+            <wf:ToolBoxTemplate  DataContext="{Binding ToolBox.WorkAreaItems}" Title="建模工具"/>
+            <GroupBox Header="Property" VerticalAlignment="Bottom" Height="200" DataContext="{Binding WorkArea.SelectItem}" Margin="0,0,0,100">
                 <Grid>
                     <Label Content="Height: " HorizontalAlignment="Right" Margin="0,10,220,0" VerticalAlignment="Top"/>
                     <Label Content="Width: " HorizontalAlignment="Right" Margin="10,40,220,0" VerticalAlignment="Top"/>
@@ -29,15 +26,11 @@
                     <TextBox HorizontalAlignment="Left" Height="23" Margin="109,72,0,0" TextWrapping="Wrap" Text="{Binding Left,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
                     <TextBox HorizontalAlignment="Left" Height="23" Margin="109,102,0,0" TextWrapping="Wrap" Text="{Binding Top,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
                     <TextBox HorizontalAlignment="Left" Height="23" Margin="109,132,0,0" TextWrapping="Wrap" Text="{Binding Content,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
-
                 </Grid>
-              
             </GroupBox>
-            <Button VerticalAlignment="Bottom" Height="50" Width="70" Content="Save" HorizontalAlignment="Left"  Margin="20" Command="{Binding CmdSave}"/>
-            <Button VerticalAlignment="Bottom" Height="50" Width="70" Content="Load" HorizontalAlignment="Left"  Margin="180,0,0,20" Command="{Binding CmdLoad}"/>
         </Grid>
         <Grid Grid.Column="1">
-            <wf:WorkAreaTemplate DataContext="{Binding WorkFlowModel.WorkArea.WorkAreaItems}" Title="建模工作区"></wf:WorkAreaTemplate>
+            <wf:WorkAreaTemplate DataContext="{Binding WorkArea.WorkAreaItems}" Title="建模工作区"></wf:WorkAreaTemplate>
         </Grid>
     </Grid>
 </Window>

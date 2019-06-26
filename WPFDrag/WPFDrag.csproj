@@ -86,8 +86,12 @@
     <Compile Include="Themes\ToolBoxTemplate.cs" />
     <Compile Include="Themes\WorkAreaTemplate.cs" />
     <Compile Include="Themes\WorkFlowEnum.cs" />
+    <Compile Include="Token\MessageToken.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="WorkFlowWinTemplate.xaml.cs">
+      <DependentUpon>WorkFlowWinTemplate.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -107,6 +111,10 @@
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WorkFlowWinTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
