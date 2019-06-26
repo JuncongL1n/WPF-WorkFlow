@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using WPFDrag.Model;
 using WPFDrag.Themes;
 using WPFDrag.Token;
+using WPFDrag.Utils;
 
 namespace WPFDrag.ViewModel
 {
@@ -96,7 +97,8 @@ namespace WPFDrag.ViewModel
 			sfd.Filter = "xml file|*.xml";
 			if (sfd.ShowDialog() == DialogResult.OK)
 			{
-				WorkFlowModel.WorkArea.Save2XmlFile(sfd.FileName);
+				//WorkFlowModel.WorkArea.Save2XmlFile(sfd.FileName);
+				XmlUtils.Save2XmlFile(WorkFlowModel.WorkArea, sfd.FileName);
 			}
 		}
 
@@ -130,7 +132,8 @@ namespace WPFDrag.ViewModel
 			if (ofd.ShowDialog() == DialogResult.OK)
 			{
 
-				WorkFlowModel.WorkArea.LoadXml(ofd.FileName);
+				//WorkFlowModel.WorkArea.LoadXml(ofd.FileName);
+				XmlUtils.LoadXml(WorkFlowModel.WorkArea, ofd.FileName);
 			}
 		}
 

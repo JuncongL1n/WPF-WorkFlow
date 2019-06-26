@@ -75,6 +75,7 @@
     <Compile Include="Model\WorkAreaModel.cs" />
     <Compile Include="Model\WorkFlowModel.cs" />
     <Compile Include="Model\WorkFlowFactory.cs" />
+    <Compile Include="Utils\XmlUtils.cs" />
     <Compile Include="Themes\BaseWorkFlow.cs" />
     <Compile Include="Themes\DecisionWorkFlow.cs" />
     <Compile Include="Themes\EndWorkFlow.cs" />
